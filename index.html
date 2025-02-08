@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="loader">
+        <div class="wave-text">
+            <span style="--i:1">w</span>
+            <span style="--i:2">a</span>
+            <span style="--i:3">v</span>
+            <span style="--i:4">e</span>
+            <span style="--i:5">s</span>
+            <span style="--i:6">f</span>
+            <span style="--i:7">m</span>
+        </div>
+    </div>
     <div class="dj-console">
         <div class="turntable-container">
             <div class="turntable left">
@@ -28,6 +39,28 @@
                 </div>
             </div>
             <div class="mixer">
+                <div class="effects-section">
+                    <div class="deck-effects left">
+                        <div class="effect-control">
+                            <label>Delay</label>
+                            <input type="range" class="delay-control" data-deck="left" min="0" max="100" value="0">
+                        </div>
+                        <div class="effect-control">
+                            <label>Reverb</label>
+                            <input type="range" class="reverb-control" data-deck="left" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                    <div class="deck-effects right">
+                        <div class="effect-control">
+                            <label>Delay</label>
+                            <input type="range" class="delay-control" data-deck="right" min="0" max="100" value="0">
+                        </div>
+                        <div class="effect-control">
+                            <label>Reverb</label>
+                            <input type="range" class="reverb-control" data-deck="right" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
                 <input type="range" class="crossfader" min="0" max="100" value="50">
                 <canvas id="visualizer" width="200" height="100"></canvas>
             </div>

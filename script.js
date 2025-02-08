@@ -14,6 +14,8 @@ class DJConsole {
             audio: null,
             source: null,
             gainNode: this.audioContext.createGain(),
+            delayNode: this.createDelayEffect(),
+            reverbNode: this.createReverbEffect(),
             playing: false,
             speed: 1
         };
@@ -22,15 +24,67 @@ class DJConsole {
         const uploadBtn = document.querySelector(`.upload-btn[data-deck="${side}"]`);
         const playBtn = document.querySelector(`.play-btn[data-deck="${side}"]`);
         const speedControl = document.querySelector(`.speed-control[data-deck="${side}"]`);
+        const delayControl = document.querySelector(`.delay-control[data-deck="${side}"]`);
+        const reverbControl = document.querySelector(`.reverb-control[data-deck="${side}"]`);
         const vinyl = document.querySelector(`.turntable.${side} .vinyl`);
 
         uploadBtn.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => this.handleFileSelect(e, deck, vinyl));
         playBtn.addEventListener('click', () => this.togglePlay(deck, playBtn, vinyl));
         speedControl.addEventListener('input', (e) => this.adjustSpeed(deck, e.target.value));
+        delayControl.addEventListener('input', (e) => this.adjustDelay(deck, e.target.value));
+        reverbControl.addEventListener('input', (e) => this.adjustReverb(deck, e.target.value));
 
+        deck.source && deck.source.connect(deck.delayNode);
+        deck.delayNode.connect(deck.reverbNode);
+        deck.reverbNode.connect(deck.gainNode);
         deck.gainNode.connect(this.audioContext.destination);
         return deck;
+    }
+
+    createDelayEffect() {
+        const delayNode = this.audioContext.createDelay(5.0);
+        delayNode.delayTime.value = 0;
+        const feedbackGain = this.audioContext.createGain();
+        feedbackGain.gain.value = 0;
+        delayNode.connect(feedbackGain);
+        feedbackGain.connect(delayNode);
+        return delayNode;
+    }
+
+    createReverbEffect() {
+        const convolver = this.audioContext.createConvolver();
+        const reverbGain = this.audioContext.createGain();
+        reverbGain.gain.value = 0;
+        this.generateReverb(convolver);
+        convolver.connect(reverbGain);
+        return reverbGain;
+    }
+
+    generateReverb(convolver) {
+        const sampleRate = this.audioContext.sampleRate;
+        const length = sampleRate * 2;
+        const impulse = this.audioContext.createBuffer(2, length, sampleRate);
+        const leftChannel = impulse.getChannelData(0);
+        const rightChannel = impulse.getChannelData(1);
+
+        for (let i = 0; i < length; i++) {
+            const decay = Math.exp(-i / (sampleRate * 0.1));
+            leftChannel[i] = (Math.random() * 2 - 1) * decay;
+            rightChannel[i] = (Math.random() * 2 - 1) * decay;
+        }
+
+        convolver.buffer = impulse;
+    }
+
+    adjustDelay(deck, value) {
+        const normalizedValue = value / 100;
+        deck.delayNode.delayTime.value = normalizedValue * 0.5;
+    }
+
+    adjustReverb(deck, value) {
+        const normalizedValue = value / 100;
+        deck.reverbNode.gain.value = normalizedValue;
     }
 
     handleFileSelect(event, deck, vinyl) {
@@ -57,7 +111,6 @@ class DJConsole {
             deck.gainNode.gain.setValueAtTime(deck.gainNode.gain.value, currentTime);
             deck.gainNode.gain.linearRampToValueAtTime(0, currentTime + 0.3);
             
-            // Create and play scratch sound
             const scratchOsc = this.audioContext.createOscillator();
             const scratchGain = this.audioContext.createGain();
             scratchOsc.type = 'sawtooth';
@@ -83,7 +136,7 @@ class DJConsole {
             deck.source = this.audioContext.createBufferSource();
             deck.source.buffer = deck.audio;
             deck.source.playbackRate.value = deck.speed;
-            deck.source.connect(deck.gainNode);
+            deck.source.connect(deck.delayNode);
             
             const offset = deck.pausedAt || 0;
             deck.startedAt = this.audioContext.currentTime - offset;

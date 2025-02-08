@@ -54,6 +54,8 @@ Supports all modern browsers that implement the Web Audio API and Canvas API:
 - Safari
 - Edge
 
+// and i think mobile as well but hmm?
+
 ## License
 
 MIT License - Feel free to use and modify as needed.
