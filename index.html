@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Console Player</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dj-console">
+        <div class="turntable-container">
+            <div class="turntable left">
+                <div class="platter">
+                    <div class="vinyl"></div>
+                    <div class="spindle"></div>
+                    <div class="tonearm">
+                        <div class="tonearm-base"></div>
+                        <div class="arm-tube">
+                            <div class="cartridge"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="file" id="audio-file-left" accept="audio/*" class="file-input">
+                    <button class="upload-btn" data-deck="left">Upload MP3</button>
+                    <button class="play-btn" data-deck="left">Play</button>
+                    <input type="range" class="speed-control" min="0.5" max="2" step="0.1" value="1" data-deck="left">
+                </div>
+            </div>
+            <div class="mixer">
+                <input type="range" class="crossfader" min="0" max="100" value="50">
+                <canvas id="visualizer" width="200" height="100"></canvas>
+            </div>
+            <div class="turntable right">
+                <div class="platter">
+                    <div class="vinyl"></div>
+                    <div class="spindle"></div>
+                    <div class="tonearm">
+                        <div class="tonearm-base"></div>
+                        <div class="arm-tube">
+                            <div class="cartridge"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="file" id="audio-file-right" accept="audio/*" class="file-input">
+                    <button class="upload-btn" data-deck="right">Upload MP3</button>
+                    <button class="play-btn" data-deck="right">Play</button>
+                    <input type="range" class="speed-control" min="0.5" max="2" step="0.1" value="1" data-deck="right">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
