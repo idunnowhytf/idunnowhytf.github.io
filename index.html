@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Javascript Countdown to May 1st 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>???</title>
   <link href='https://fonts.googleapis.com/css?family=Arimo:700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./glitch.css">
+  <link rel="stylesheet" href="./flash.css">
 </head>
 <body>
+  <div class="warning-overlay" id="warningOverlay">
+    <div class="warning-content">
+      <p>Strona zawiera migające elementy, nieodpowiednie dla niektórych osób.</p>
+      <button onclick="acknowledgeWarning()">Rozumiem</button>
+    </div>
+  </div>
   <div class="loading-screen">
     <div class="loading-image">
       <img src="./wave.png" alt="Wave Logo">
@@ -17,6 +26,7 @@
     <a href="https://www.youtube.com/@w4vesfm" target="_blank">
       <img src="./lg.png" alt="LG Logo" style="max-width: 200px; margin-bottom: 20px;">
     </a>
+    <div style="text-align: center; margin-bottom: 10px; color: #fff; font-size: 12px;">???</div>
     <div class="timer--clock">
       <div class="days-group clock-display-grp">
         <div class="first number-grp">
@@ -148,9 +158,13 @@
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 65 65" enable-background="new 0 0 65 65" xml:space="preserve">
       <path fill="#2b2b2b" d="M60.2,2.5c-2.3-0.2-4.4,1.5-4.6,3.9l-0.2,2.3c-6-5.6-13.8-8.7-22-8.7C15.5,0,0.9,14.5,0.9,32.4c0,17.9,14.5,32.4,32.4,32.4c12.3,0,23.5-6.9,29-17.9c1.1-2.1,0.2-4.7-1.9-5.7c-2.1-1.1-4.7-0.2-5.7,1.9c-4.1,8.1-12.3,13.2-21.4,13.2c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9c6.1,0,11.9,2.3,16.4,6.5l-3.4-0.3c-2.3-0.2-4.4,1.5-4.6,3.9c-0.2,2.3,1.5,4.4,3.9,4.6l12.7,1.1c0.1,0,0.3,0,0.4,0c1,0,2-0.3,2.7-1c0.9-0.7,1.4-1.8,1.5-2.9l1.2-13.4C64.3,4.7,62.5,2.7,60.2,2.5z"/>
     </svg>
-    <p>RESTART COUNTDOWN</p>
+    <p></p>
   </div>
+  <div class="copyright">© 2025 WFM</div>
   <script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
   <script src="./script.js"></script>
+  <div class="flash-overlay">
+    <div class="flash-text">Majówka 01.05.25</div>
+  </div>
 </body>
 </html>

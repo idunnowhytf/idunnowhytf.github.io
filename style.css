@@ -1,6 +1,83 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+.warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.warning-content {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  padding: 15px;
+  margin: 15px;
+  max-width: 90%;
+  width: min(400px, 95%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.warning-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.warning-content button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.warning-content button:hover {
+  background-color: #cccccc;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.copyright {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 1000;
+}
+
+* {
   font-family: "Arimo", sans-serif;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -18,6 +95,8 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .timer {
@@ -102,9 +181,13 @@ body {
 .timer--clock {
   width: 100%;
   position: relative;
-  padding-left: 6px;
-  margin-top: 22px;
+  padding: 0;
+  margin-top: 1rem;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
 }
 .timer--clock .clock-display-grp {
   width: 100%;
@@ -113,7 +196,7 @@ body {
 .timer--clock .clock-display-grp .number-grp {
   width: auto;
   display: block;
-  height: 156px;
+  height: clamp(40px, 15vw, 156px);
   float: left;
   overflow: hidden;
 }
@@ -129,8 +212,8 @@ body {
 .timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
   width: auto;
   display: table;
-  font-size: 100px;
-  line-height: 150px;
+  font-size: clamp(30px, 12vw, 100px);
+  line-height: 1.5;
   font-weight: bold;
 }
 .timer--clock .clock-separator {
@@ -142,9 +225,10 @@ body {
 .timer--clock .clock-separator p {
   width: auto;
   display: table;
-  font-size: 50px;
-  line-height: 200px;
+  font-size: clamp(20px, 6vw, 50px);
+  line-height: 2;
   font-weight: bold;
+  margin: 0 0.1em;
 }
 .timer h4 {
   width: 100%;
@@ -192,23 +276,51 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000000;
+  background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
 }
 
 .loading-image {
-  animation: wave 2s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
 }
 
 .loading-image img {
-  max-width: 200px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-@keyframes wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
 }

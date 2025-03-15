@@ -1,6 +1,44 @@
+// Check warning acknowledgment immediately
+const warningAcknowledged = localStorage.getItem('warningAcknowledged');
+if (warningAcknowledged === 'true') {
+  document.getElementById('warningOverlay').style.display = 'none';
+}
+
 TweenLite.defaultEase = Expo.easeOut;
 
 // Handle loading screen
+function triggerFlash() {
+  const overlay = document.querySelector('.flash-overlay');
+  const duration = (Math.random() * 1.9 + 0.1).toFixed(2); // Random duration between 0.1 and 2 seconds
+  overlay.style.setProperty('--flash-duration', `${duration}s`);
+
+  // Define color arrays
+  const bgColors = ['black', 'white', 'yellow', 'red', 'rainbow'];
+  const textColors = ['black', 'white', 'red', 'blue', 'orange'];
+
+  // Select random colors
+  const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
+  const randomText = textColors[Math.floor(Math.random() * textColors.length)];
+
+  // Apply colors
+  if (randomBg === 'rainbow') {
+    overlay.classList.add('rainbow');
+    overlay.style.background = '';
+  } else {
+    overlay.classList.remove('rainbow');
+    overlay.style.background = randomBg;
+  }
+  overlay.style.color = randomText;
+  overlay.classList.add('active');
+  
+  setTimeout(() => {
+    overlay.classList.remove('active');
+    overlay.classList.remove('rainbow');
+    const nextFlash = Math.floor(Math.random() * 9000) + 1000; // Random interval between 1-10 seconds
+    setTimeout(triggerFlash, nextFlash);
+  }, duration * 1000);
+}
+
 window.addEventListener('load', () => {
   setTimeout(() => {
     const loadingScreen = document.querySelector('.loading-screen');
@@ -9,6 +47,8 @@ window.addEventListener('load', () => {
       onComplete: () => {
         loadingScreen.style.display = 'none';
         initTimer();
+        startGlitchEffect();
+        triggerFlash();
       }
     });
   }, 2000);
@@ -107,3 +147,57 @@ reloadBtn.addEventListener('click', function() {
   TweenMax.to(timerEl, 1, { opacity: 1 });
   initTimer();
 });
+
+function startGlitchEffect() {
+  const elements = [document.querySelector('.timer img'), document.querySelector('.timer--clock')];
+  
+  function triggerGlitch() {
+    const element = elements[Math.floor(Math.random() * elements.length)];
+    element.classList.add('glitch');
+    element.setAttribute('data-text', element.textContent || '');
+    
+    setTimeout(() => {
+      element.classList.remove('glitch');
+      element.removeAttribute('data-text');
+    }, 1000);
+    
+    const nextGlitch = Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000;
+    setTimeout(triggerGlitch, nextGlitch);
+  }
+  
+  triggerGlitch();
+}
+// Check warning acknowledgment on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const randomDuration = (Math.random() * 2.5 + 0.5).toFixed(2); // Random between 0.5 and 3 seconds
+  document.documentElement.style.setProperty('--loading-duration', `${randomDuration}s`);
+
+  // Check if warning has been acknowledged
+  const warningAcknowledged = localStorage.getItem('warningAcknowledged');
+  if (warningAcknowledged === 'true') {
+    document.getElementById('warningOverlay').style.display = 'none';
+  }
+});
+
+function acknowledgeWarning() {
+  document.getElementById('warningOverlay').style.display = 'none';
+  
+  // Save the choice in localStorage
+  localStorage.setItem('warningAcknowledged', 'true');
+  
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = 'Zapisano wybór.';
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 100);
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 7000);
+}
