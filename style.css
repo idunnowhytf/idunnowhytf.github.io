@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Arimo", sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: #000000;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+.timer * {
+  cursor: default;
+}
+.timer h3 {
+  width: 100%;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-align: center;
+}
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding-left: 6px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: 156px;
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: 156px;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: 100px;
+  line-height: 150px;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: 156px;
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: 50px;
+  line-height: 200px;
+  font-weight: bold;
+}
+.timer h4 {
+  width: 100%;
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-align: center;
+  padding-top: 25px;
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-image {
+  animation: wave 2s ease-in-out infinite;
+}
+
+.loading-image img {
+  max-width: 200px;
+  height: auto;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
