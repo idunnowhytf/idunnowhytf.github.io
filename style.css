@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: 'Ultra-System-Sans';
+  src: url('./fonts/ultra-system-sans.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .warning-overlay {
   position: fixed;
   top: 0;
@@ -77,14 +84,28 @@
     z-index: 1000;
 }
 
+.timer {
+  font-family: "Ultra-System-Sans", sans-serif;
+}
+
+.copyright, .warning-content p {
+  font-family: "TAN-NIMBUS", sans-serif;
+}
+
 * {
-  font-family: "Arimo", sans-serif;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@font-face {
+  font-family: 'TAN-NIMBUS';
+  src: url('./fonts/TAN-NIMBUS.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
@@ -169,15 +190,24 @@ body {
   display: none;
   opacity: 0;
 }
+
 .timer * {
   cursor: default;
 }
+
 .timer h3 {
   width: 100%;
   font-size: 10px;
   letter-spacing: 4px;
   text-align: center;
 }
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .timer--clock {
   width: 100%;
   position: relative;

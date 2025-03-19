@@ -18,7 +18,8 @@
 }
 
 .flash-overlay {
-    position: fixed;
+  font-family: "TAN-NIMBUS", sans-serif;
+  position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -40,6 +41,7 @@
 }
 
 .flash-text {
+    font-family: "TAN-NIMBUS", sans-serif;
     font-size: 48px;
     font-weight: bold;
     text-align: center;
