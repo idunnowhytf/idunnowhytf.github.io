@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>???</title>
+  <title>Majowka</title>
+  <script>
+    const titles = ['Majowka', 'Coming Soon', 'WavesFM'];
+    let currentTitleIndex = 0;
+    
+    function updateTitle() {
+      currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+      document.title = titles[currentTitleIndex];
+    }
+    
+    setInterval(updateTitle, 2000); // Change title every 2 seconds
+  </script>
   <link href='https://fonts.googleapis.com/css?family=Arimo:700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
   <link rel="stylesheet" href="./style.css">
@@ -26,7 +37,19 @@
     <a href="https://www.youtube.com/@w4vesfm" target="_blank">
       <img src="./lg.png" alt="LG Logo" class="glitch-image" data-alt-src="./lg2.png" style="max-width: 200px; margin-bottom: 20px;">
     </a>
-    <div style="text-align: center; margin-bottom: 10px; color: #fff; font-size: 12px;">???</div>
+    <div id="animated-text" style="text-align: center; margin-bottom: 10px; color: #fff; font-size: 12px;">Majowka</div>
+    <script>
+      const textElement = document.getElementById('animated-text');
+      const textTitles = ['???'];
+      let textIndex = 0;
+      
+      function updateText() {
+        textIndex = (textIndex + 1) % textTitles.length;
+        textElement.textContent = textTitles[textIndex];
+      }
+      
+      setInterval(updateText, 2000);
+    </script>
     <div class="timer--clock">
       <div class="days-group clock-display-grp">
         <div class="first number-grp">
