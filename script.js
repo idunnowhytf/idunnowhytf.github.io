@@ -201,3 +201,29 @@ function acknowledgeWarning() {
     }, 300);
   }, 7000);
 }
+
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function switchImage() {
+  const image = document.querySelector('.glitch-image');
+  
+  // Add glitch effect without changing the image
+  image.classList.add('glitch-active');
+  
+  // Remove glitch effect after a short duration
+  setTimeout(() => {
+    image.classList.remove('glitch-active');
+    
+    // Schedule next glitch effect
+    setTimeout(switchImage, getRandomNumber(3000, 10000));
+  }, getRandomNumber(100, 500));
+}
+
+
+// Start the animation after page load
+window.addEventListener('load', () => {
+  setTimeout(switchImage, getRandomNumber(1000, 10000));
+});
