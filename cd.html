@@ -1,198 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>???</title>
-  <script>
-    const titles = ['???', '01.05.2025', 'Coming Soon', 'WavesFM'];
-    let currentTitleIndex = 0;
-    
-    function updateTitle() {
-      currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-      document.title = titles[currentTitleIndex];
-    }
-    
-    setInterval(updateTitle, 500); // Change title every 2 seconds
-  </script>
-  <link href='https://fonts.googleapis.com/css?family=Arimo:700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./glitch.css">
-  <link rel="stylesheet" href="./flash.css">
-<!-- MailerLite Universal -->
-<script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '1403897');
-</script>
-<!-- End MailerLite Universal -->
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>???</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
+        #introVideo {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+        #skipButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        #skipButton:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
 <body>
- 
- 
-  <div class="loading-screen">
-    <div class="loading-image">
-      <img src="./wave.png" alt="Wave Logo" style="width: min(200px, 50vw); height: auto;">
-    </div>
-  </div>
-  <div class="timer">
-    <a href="https://www.youtube.com/@w4vesfm" target="_blank">
-      <img src="./lg.png" alt="LG Logo" class="glitch-image" data-alt-src="./lg2.png" style="max-width: min(200px, 50vw); margin-bottom: clamp(10px, 4vw, 20px);">
-    </a>
-    <div id="animated-text" style="text-align: center; margin-bottom: 10px; color: #fff; font-size: 12px;">???</div>
+    <button id="skipButton">Skip</button>
+    <video id="introVideo" autoplay playsinline muted>
+        <source src="./intro.mp4" type="video/mp4">
+    </video>
+
     <script>
-      const textElement = document.getElementById('animated-text');
-      const textTitles = ['???'];
-      let textIndex = 0;
-      
-      function updateText() {
-        textIndex = (textIndex + 1) % textTitles.length;
-        textElement.textContent = textTitles[textIndex];
-      }
-      
-      setInterval(updateText, 2000);
+        document.getElementById('introVideo').addEventListener('ended', function() {
+            window.location.href = 'cd.html';
+        });
+        document.getElementById('skipButton').addEventListener('click', function() {
+            window.location.href = 'cd.html';
+        });
     </script>
-    <div class="timer--clock">
-      <div class="days-group clock-display-grp">
-        <div class="first number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-        <div class="second number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="clock-separator"><p>d</p></div>
-      <div class="hours-group clock-display-grp">
-        <div class="first number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-        <div class="second number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="clock-separator"><p>h</p></div>
-      <div class="minutes-group clock-display-grp">
-        <div class="first number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-        <div class="second number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="clock-separator"><p>m</p></div>
-      <div class="seconds-group clock-display-grp">
-        <div class="first number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-        <div class="second number-grp">
-          <div class="number-grp-wrp">
-            <div class="num num-0"><p>0</p></div>
-            <div class="num num-1"><p>1</p></div>
-            <div class="num num-2"><p>2</p></div>
-            <div class="num num-3"><p>3</p></div>
-            <div class="num num-4"><p>4</p></div>
-            <div class="num num-5"><p>5</p></div>
-            <div class="num num-6"><p>6</p></div>
-            <div class="num num-7"><p>7</p></div>
-            <div class="num num-8"><p>8</p></div>
-            <div class="num num-9"><p>9</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="clock-separator"><p>s</p></div>
-    </div>
-  </div>
-  <div class="reload">
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 65 65" enable-background="new 0 0 65 65" xml:space="preserve">
-      <path fill="#2b2b2b" d="M60.2,2.5c-2.3-0.2-4.4,1.5-4.6,3.9l-0.2,2.3c-6-5.6-13.8-8.7-22-8.7C15.5,0,0.9,14.5,0.9,32.4c0,17.9,14.5,32.4,32.4,32.4c12.3,0,23.5-6.9,29-17.9c1.1-2.1,0.2-4.7-1.9-5.7c-2.1-1.1-4.7-0.2-5.7,1.9c-4.1,8.1-12.3,13.2-21.4,13.2c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9c6.1,0,11.9,2.3,16.4,6.5l-3.4-0.3c-2.3-0.2-4.4,1.5-4.6,3.9c-0.2,2.3,1.5,4.4,3.9,4.6l12.7,1.1c0.1,0,0.3,0,0.4,0c1,0,2-0.3,2.7-1c0.9-0.7,1.4-1.8,1.5-2.9l1.2-13.4C64.3,4.7,62.5,2.7,60.2,2.5z"/>
-    </svg>
-    <p></p>
-  </div>
-  <div class="copyright">© 2025 WFM</div>
-  <script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
-  <script src="./script.js"></script>
-  <div class="flash-overlay">
-    <div class="flash-text">Majówka 01.05.25</div>
-  </div>
 </body>
 </html>
