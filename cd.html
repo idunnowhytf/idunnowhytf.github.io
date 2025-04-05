@@ -43,7 +43,6 @@
       <img src="./lg.png" alt="LG Logo" class="glitch-image" data-alt-src="./lg2.png" style="max-width: min(200px, 50vw); margin-bottom: clamp(10px, 4vw, 20px);">
     </a>
     <div id="animated-text" style="text-align: center; margin-bottom: 10px; color: #fff; font-size: 12px;">???</div>
-    <button id="replayButton" style="position: absolute; top: 10px; right: 10px; padding: 8px 15px; background: rgba(0, 0, 0, 0.5); color: white; border: 1px solid white; border-radius: 5px; cursor: pointer; font-family: Arial, sans-serif; transition: background 0.3s;">Replay</button>
     <script>
       const textElement = document.getElementById('animated-text');
       const textTitles = ['???'];
@@ -192,17 +191,6 @@
   <div class="copyright">© 2025 WFM</div>
   <script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
   <script src="./script.js"></script>
-  <script>
-    document.getElementById('replayButton').addEventListener('click', function() {
-      window.location.href = 'index.html';
-    });
-    document.getElementById('replayButton').addEventListener('mouseover', function() {
-      this.style.background = 'rgba(255, 255, 255, 0.2)';
-    });
-    document.getElementById('replayButton').addEventListener('mouseout', function() {
-      this.style.background = 'rgba(0, 0, 0, 0.5)';
-    });
-  </script>
   <div class="flash-overlay">
     <div class="flash-text">Majówka 01.05.25</div>
   </div>
