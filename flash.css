@@ -42,7 +42,8 @@
 
 .flash-text {
     font-family: "TAN-NIMBUS", sans-serif;
-    font-size: 48px;
+    font-size: clamp(24px, 8vw, 48px);
     font-weight: bold;
     text-align: center;
+    padding: 0 15px;
 }

@@ -169,6 +169,13 @@ function startGlitchEffect() {
 }
 // Check warning acknowledgment on page load
 document.addEventListener('DOMContentLoaded', function() {
+  const videoOverlay = document.getElementById('videoOverlay');
+  const introVideo = document.getElementById('introVideo');
+
+  introVideo.play();
+  introVideo.addEventListener('ended', function() {
+    videoOverlay.classList.add('fade-out');
+  });
   const randomDuration = (Math.random() * 2.5 + 0.5).toFixed(2); // Random between 0.5 and 3 seconds
   document.documentElement.style.setProperty('--loading-duration', `${randomDuration}s`);
 

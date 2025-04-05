@@ -3,6 +3,28 @@
   padding: 0;
 }
 
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10002;
+  background-color: black;
+  transition: opacity 1s ease-out;
+}
+
+.video-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#introVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @font-face {
   font-family: 'Ultra-System-Sans';
   src: url('./fonts/ultra-system-sans.otf') format('opentype');
@@ -38,16 +60,16 @@
 }
 
 .warning-content p {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: clamp(14px, 4vw, 18px);
+  margin-bottom: clamp(15px, 4vw, 20px);
 }
 
 .warning-content button {
   background-color: white;
   color: black;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: clamp(8px, 2vw, 10px) clamp(15px, 4vw, 20px);
+  font-size: clamp(14px, 3.5vw, 16px);
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -77,9 +99,9 @@
 
 .copyright {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 12px;
+    bottom: clamp(10px, 3vw, 20px);
+    right: clamp(10px, 3vw, 20px);
+    font-size: clamp(10px, 2.5vw, 12px);
     color: rgba(255, 255, 255, 0.7);
     z-index: 1000;
 }
@@ -109,7 +131,11 @@
 }
 
 body {
-  background: #000000;
+  background: #000000 url('./bg.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: white;
   display: flex;
   justify-content: center;
@@ -219,6 +245,17 @@ body {
   align-items: center;
   gap: clamp(0.15rem, 1vw, 0.3rem);
 }
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
 .timer--clock .clock-display-grp {
   width: 100%;
   position: relative;
@@ -226,7 +263,7 @@ body {
 .timer--clock .clock-display-grp .number-grp {
   width: auto;
   display: block;
-  height: clamp(40px, 15vw, 156px);
+  height: clamp(30px, 12vw, 120px);
   float: left;
   overflow: hidden;
 }
@@ -237,12 +274,12 @@ body {
 .timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
   width: 100%;
   position: relative;
-  height: 156px;
+  height: min(156px, 40vh);
 }
 .timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
   width: auto;
   display: table;
-  font-size: clamp(30px, 12vw, 100px);
+  font-size: clamp(24px, 8vw, 60px);
   line-height: 1.5;
   font-weight: bold;
 }
@@ -250,12 +287,12 @@ body {
   width: auto;
   float: left;
   display: block;
-  height: 156px;
+  height: min(156px, 40vh);
 }
 .timer--clock .clock-separator p {
   width: auto;
   display: table;
-  font-size: clamp(20px, 6vw, 50px);
+  font-size: clamp(16px, 4vw, 30px);
   line-height: 2;
   font-weight: bold;
   margin: 0 0.1em;
@@ -314,6 +351,7 @@ body {
   pointer-events: all;
   animation: fadeOut 0.5s ease-in-out forwards;
   animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
 }
 
 .loading-image {
@@ -354,3 +392,2216 @@ body {
   75% { filter: hue-rotate(270deg) saturate(150%); }
   100% { filter: hue-rotate(360deg) saturate(100%); }
 }
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes colorize {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  25% { filter: hue-rotate(90deg) saturate(150%); }
+  50% { filter: hue-rotate(180deg) saturate(200%); }
+  75% { filter: hue-rotate(270deg) saturate(150%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.timer {
+  width: auto;
+  height: auto;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer h3 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.clock-display-grp {
+  display: flex;
+}
+
+.number-grp {
+  height: 10px;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  position: relative;
+}
+
+.num {
+  height: 60px;
+}
+
+.num p {
+  font-size: 5px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.clock-separator {
+  height: 60px;
+}
+
+.clock-separator p {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.timer h4 {
+  font-size: 8px;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.reload {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+}
+
+.timer * {
+  cursor: default;
+}
+
+.timer h3 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(2px, 1vw, 4px);
+  text-align: center;
+}
+
+.timer--clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timer--clock {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.15rem, 1vw, 0.3rem);
+}
+
+@media screen and (max-aspect-ratio: 9/16) {
+  .timer--clock {
+    transform: scale(0.8);
+    margin-top: 0;
+  }
+  .timer h3, .timer h4 {
+    font-size: clamp(6px, 2vw, 8px);
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+  }
+}
+.timer--clock .clock-display-grp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp {
+  width: auto;
+  display: block;
+  height: clamp(30px, 12vw, 120px);
+  float: left;
+  overflow: hidden;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+  width: 100%;
+  position: relative;
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+  width: 100%;
+  position: relative;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+  width: auto;
+  display: table;
+  font-size: clamp(24px, 8vw, 60px);
+  line-height: 1.5;
+  font-weight: bold;
+}
+.timer--clock .clock-separator {
+  width: auto;
+  float: left;
+  display: block;
+  height: min(156px, 40vh);
+}
+.timer--clock .clock-separator p {
+  width: auto;
+  display: table;
+  font-size: clamp(16px, 4vw, 30px);
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 0.1em;
+}
+.timer h4 {
+  width: 100%;
+  font-size: clamp(8px, 2.5vw, 10px);
+  letter-spacing: clamp(3px, 1.5vw, 6px);
+  text-align: center;
+  padding-top: clamp(15px, 5vw, 25px);
+  float: left;
+}
+
+.reload {
+  width: 125px;
+  height: 14px;
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  margin-left: -62.5px;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+.reload:hover svg path {
+  fill: #666666;
+}
+.reload:hover p {
+  color: #666666;
+}
+.reload svg {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 10px;
+}
+.reload p {
+  color: #2b2b2b;
+  font-size: 12px;
+  float: left;
+  line-height: 11px;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  pointer-events: all;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: var(--loading-duration, 2s);
+  animation-fill-mode: forwards;
+}
+
+.loading-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(100px, 30vw);
+  height: min(100px, 30vw);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards, float 2s ease-in-out infinite, colorize 4s linear infinite;
+  animation-delay: calc(var(--loading-duration, 2s) - 0.5s), 0s, 0s;
+}
+
+.loading-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity:
